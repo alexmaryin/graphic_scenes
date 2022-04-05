@@ -6,10 +6,11 @@ SX = 1024
 SY = 800
 num_stars = 200
 speed = 0.5
+radius_delta = 0.005
 
 
 def new_star():
-    return [random.randint(0, SX) - SX // 2, random.randint(0, SY) - SY // 2, 256, 0]
+    return [random.randint(0, SX) - SX // 2, random.randint(0, SY) - SY // 2, 256, 0, 2]
 
 
 def off_screen(x, y, z):
@@ -27,6 +28,7 @@ def process_graphics(screen):
         x = s[0] * 256 / s[2]
         y = s[1] * 256 / s[2]
         s[2] -= speed
+        s[4] += radius_delta
         if off_screen(x, y, s[2]):
             s = new_star()
         if s[3] < 256:
@@ -36,7 +38,7 @@ def process_graphics(screen):
         stars[i] = s
         x = round(s[0] * 256 / s[2]) + SX//2
         y = round(s[1] * 256 / s[2]) + SY//2
-        pygame.draw.circle(screen, (s[3], s[3], s[3]), (x, y), 3)
+        pygame.draw.circle(screen, (s[3], s[3], s[3]), (x, y), s[4])
 
 
 if __name__ == '__main__':
