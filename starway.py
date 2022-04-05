@@ -2,10 +2,10 @@ import random
 import pygame
 
 
-SX = 1024
-SY = 800
+SX = 1440
+SY = 900
 num_stars = 200
-speed = 0.5
+speed = 0.4
 radius_delta = 0.005
 
 
@@ -45,6 +45,7 @@ if __name__ == '__main__':
     pygame.init()
     _screen = pygame.display.set_mode((SX, SY))
     running = True
+    clock = pygame.time.Clock()
 
     while running:
         for event in pygame.event.get():
@@ -52,5 +53,8 @@ if __name__ == '__main__':
                 running = False
         process_graphics(_screen)
         pygame.display.flip()
+        clock.tick()
+        pygame.display.set_caption(f'FPS: {round(clock.get_fps())}')
+
 
     pygame.quit()
