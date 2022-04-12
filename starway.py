@@ -2,11 +2,11 @@ import random
 import pygame
 
 
-SX = 1440
-SY = 900
+SX = 1360
+SY = 760
 num_stars = 200
-speed = 0.4
-radius_delta = 0.005
+speed = 0.1
+radius_delta = 0.001
 
 
 def new_star():
