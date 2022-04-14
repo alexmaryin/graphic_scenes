@@ -1,4 +1,6 @@
 import math
+import random
+
 import pygame
 
 SX = 1360
@@ -6,7 +8,7 @@ SY = 760
 
 CIRCLE_COUNT = 100
 STEP_RADIUS = 10
-STEP_COLOR = (255 - 50) / CIRCLE_COUNT
+STEP_COLOR = (255 - 10) / CIRCLE_COUNT
 DOTS_IN_CIRCLE = 100
 
 
@@ -23,7 +25,8 @@ def draw_circle(circle: list[int, int, int, int]):
 
 
 dist = 0.05
-circles = [[SX // 2, SY // 2, 100, 50] for _ in range(CIRCLE_COUNT)]
+circles = [[SX // 2, SY // 2, 100, 10] for _ in range(CIRCLE_COUNT)]
+make_rib = random.randint(0, 10)
 
 
 def process_graphics():
@@ -36,12 +39,16 @@ def process_graphics():
         circles[i + 1] = c
         draw_circle(c)
 
-    global dist
-    sx = SX // 2 + math.sin(dist) * 50.0
-    sy = SY // 2 + math.sin(dist) * 50.0
+    global dist, make_rib
 
-    circles[0] = [sx, sy, 100, 50]
+    sx = SX // 2 + math.sin(dist) * 50.0 + (random.randint(-5, 5) if make_rib == 0 else 0)
+    sy = SY // 2 + math.sin(dist) * 35.0 + (random.randint(-5, 5) if make_rib == 0 else 0)
+
+    circles[0] = [sx, sy, 100, 10]
     dist += 0.05
+    make_rib -= 1
+    if make_rib == -1:
+        make_rib = random.randint(0, 10)
 
 
 if __name__ == '__main__':
